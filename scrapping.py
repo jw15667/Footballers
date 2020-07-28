@@ -2,6 +2,7 @@ from bs4 import BeautifulSoup
 import requests
 import csv
 
+
 club_list = ['arsenal', 'aston-villa', 'barnsley', 'birmingham-city', 'blackburn-rovers', 'blackpool',
              'bolton-wanderers', 'afc-bournemouth', 'bradford-city', 'brighton-and-hove-albion', 'burnley',
              'cardiff-city', 'charlton-athletic', 'chelsea', 'coventry-city', 'crystal-palace', 'derby-county',
@@ -16,28 +17,28 @@ season = ['1992', '1993', '1994', '1995', '1996', '1997', '1998', '1999', '2000'
 
 team_season = []
 for club, year in [(club, year) for club in club_list for year in season]:
-    team = dict()
     website = 'https://www.11v11.com/teams/{}/tab/players/season/{}/'.format(club, year)
-    team['Club'] = "{}".format(club)
-    team['Year'] = "{}".format(year)
-    team_season.append(team)
-
-
 
     source = requests.get(website).text
-
     soup = BeautifulSoup(source, 'lxml')
-
     squad = soup.find(class_="squad sortable").find("tbody").find_all("tr")
 
-    for rows in squad:
-        cells = rows.find_all("td")
-        player_name = cells[1].get_text()
-        team['Player'] = "{}".format(player_name)
-        print(team)
-        team_season.append(player_name)
 
-csv_columns = ['No','Club','Year', 'Player']
+    for rows in squad:
+            cells = rows.find_all("td")
+            player_name = cells[1].get_text()
+            for name in player_name:
+                full_name = name.strip(' ')
+                first_part = club.join(year)
+                playa = first_part.join(self, __full_name)
+            team = {}
+            team['Player'] = player_name
+            team['Club'] = club
+            team['Year'] = year
+            team['Player ID'] = playa
+            team_season.append(team)
+
+csv_columns = ['Club','Year', 'Player', 'Player ID']
 csv_file = "Football_squads.csv"
 try:
     with open(csv_file, 'w') as csvfile:
