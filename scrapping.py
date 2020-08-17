@@ -1,6 +1,7 @@
 from bs4 import BeautifulSoup
 import requests
 import csv
+import pandas as pd
 
 
 club_list = ['arsenal', 'aston-villa', 'barnsley', 'birmingham-city', 'blackburn-rovers', 'blackpool',
@@ -11,11 +12,13 @@ club_list = ['arsenal', 'aston-villa', 'barnsley', 'birmingham-city', 'blackburn
              'nottingham-forest', 'oldham-athletic', 'portsmouth', 'queens-park-rangers', 'reading', 'sheffield-united',
              'sheffield-wednesday', 'southampton', 'stoke-city', 'sunderland', 'swansea-city', 'swindon-town', 'tottenham-hotspur',
              'watford', 'west-bromwich-albion', 'west-ham-united', 'wigan-athletic', 'wimbledon', 'wolverhampton-wanderers']
+
 season = ['1992', '1993', '1994', '1995', '1996', '1997', '1998', '1999', '2000', '2001', '2002', '2003', '2004', '2005',
           '2006', '2007', '2008', '2009', '2010', '2011', '2012', '2013', '2014', '2015', '2016', '2017', '2018', '2019']
 
 
 team_season = []
+
 for club, year in [(club, year) for club in club_list for year in season]:
     website = 'https://www.11v11.com/teams/{}/tab/players/season/{}/'.format(club, year)
 
@@ -23,20 +26,24 @@ for club, year in [(club, year) for club in club_list for year in season]:
     soup = BeautifulSoup(source, 'lxml')
     squad = soup.find(class_="squad sortable").find("tbody").find_all("tr")
 
-
     for rows in squad:
-            cells = rows.find_all("td")
-            player_name = cells[1].get_text()
-            for name in player_name:
-                full_name = name.strip(' ')
-                first_part = club.join(year)
-                playa = first_part.join(self, __full_name)
-            team = {}
-            team['Player'] = player_name
-            team['Club'] = club
-            team['Year'] = year
-            team['Player ID'] = playa
-            team_season.append(team)
+        hrefs = [(row["href"].split("/")[2]).split("-") for row in rows.find_all("a", href=True)]
+        for element in hrefs:
+            try:
+
+                first_name = element [0]
+                surname = element [1]
+                player_id = element [2]
+
+                team = {}
+                team['Player'] = first_name + ' ' + surname
+                team['Club'] = club
+                team['Year'] = year
+                team['Player ID'] = player_id
+                team_season.append(team)
+
+            except:
+                pass
 
 csv_columns = ['Club','Year', 'Player', 'Player ID']
 csv_file = "Football_squads.csv"
@@ -48,4 +55,3 @@ try:
                 writer.writerow(data)
 except IOError:
     print("I/O error")
-
