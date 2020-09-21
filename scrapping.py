@@ -40,12 +40,14 @@ for club, year in [(club, year) for club in club_list for year in season]:
                 team['Club'] = club
                 team['Year'] = year
                 team['Player ID'] = player_id
+                team['Team ID'] = "{0}{1}".format(club, year)
                 team_season.append(team)
 
             except:
                 pass
 
-csv_columns = ['Club','Year', 'Player', 'Player ID']
+
+csv_columns = ['Club','Year', 'Player', 'Player ID', 'Team ID']
 csv_file = "Football_squads.csv"
 try:
     with open(csv_file, 'w') as csvfile:
@@ -55,3 +57,17 @@ try:
                 writer.writerow(data)
 except IOError:
     print("I/O error")
+
+
+    # for rows in squad:
+    #         cells = rows.find_all("td")
+    #         player_name = cells[1].get_text()
+    #         player_name_no_spaces = player_name.replace(" ", "")
+    #         strip_club = club.replace(" ", "").replace("-", "")
+    #         playa = player_name_no_spaces + strip_club + year
+    #         team = {}
+    #         team['Player'] = player_name
+    #         team['Club'] = club
+    #         team['Year'] = year
+    #         team['Player ID'] = playa.lower()
+    #         team_season.append(team)
