@@ -30,3 +30,4 @@ if name_1 in player_id_to_team_ids_map:
     searched_club_ids_2.update(add_second_player)
 
 y = (searched_club_ids_1.intersection(searched_club_ids_2))
+shared_clubs.append(y)
