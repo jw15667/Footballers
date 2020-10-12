@@ -3,7 +3,7 @@ import pprint
 from collections import defaultdict
 player_name_to_player_id_map = {}
 player_id_to_team_ids_map = defaultdict(list)
-
+team_id_to_player_id = {}
 
 with open('Football_squads.csv', 'r') as read_obj:
     csv_reader = reader(read_obj)
@@ -13,12 +13,14 @@ with open('Football_squads.csv', 'r') as read_obj:
         team_id = row[4]
         player_name_to_player_id_map[player_name] = player_id
         player_id_to_team_ids_map[player_id].append(team_id)
+        team_id_to_player_id[team_id] = player_name
+
 
 searched_club_ids_1 = set([])
 searched_club_ids_2 = set([])
 
-name_1 = player_name_to_player_id_map.get('tony adams')
-name_2 = player_name_to_player_id_map.get('david seaman')
+name_1 = player_name_to_player_id_map.get('nicolas anelka')
+name_2 = player_name_to_player_id_map.get('daniel sturridge')
 shared_clubs = []
 
 if name_1 in player_id_to_team_ids_map:
@@ -28,8 +30,3 @@ if name_1 in player_id_to_team_ids_map:
     searched_club_ids_2.update(add_second_player)
 
 y = (searched_club_ids_1.intersection(searched_club_ids_2))
-shared_clubs.append(y)
-
-for x in shared_clubs:
-    season = player_id_to_team_ids_map.get(x)
-    print(season)
