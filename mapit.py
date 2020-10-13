@@ -20,8 +20,8 @@ searched_club_ids_1 = set([])
 searched_club_ids_2 = set([])
 
 
-name_1 = player_name_to_player_id_map.get('gareth barry')
-name_2 = player_name_to_player_id_map.get('ashley young')
+name_1 = player_name_to_player_id_map.get('david dunn')
+name_2 = player_name_to_player_id_map.get('thierry henry')
 
 if name_1 in player_id_to_team_ids_map:
     search = player_id_to_team_ids_map.get(name_1)
@@ -29,14 +29,8 @@ if name_1 in player_id_to_team_ids_map:
     searched_club_ids_1.update(search)
     searched_club_ids_2.update(add_second_player)
 
-print(searched_club_ids_1)
 
-shared_clubs = (searched_club_ids_1.intersection(searched_club_ids_2))
-print(shared_clubs)
-total_players = []
-
-for team in shared_clubs:
-    player_list = team_id_to_player_name.get(team)
-    total_players.append(player_list)
-
-print(total_players)
+player_1_teammates = set([])
+for season in searched_club_ids_1:
+    finder = team_id_to_player_name.get(season)
+    player_1_teammates.update(finder)
