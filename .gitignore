@@ -1,4 +1,3 @@
 *.pyc
-total_player_ids.py
-player_to_teams.py
 .vscode
+__pycache__
