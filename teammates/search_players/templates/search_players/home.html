@@ -1,0 +1,36 @@
+{% extends "search_players/base.html"%}
+{% block content %}
+<head>
+    <link rel="canonical" href="https://getbootstrap.com/docs/4.0/examples/floating-labels/">
+    <link href="../../static/search_players/floating-labels.css" rel="stylesheet">
+</head>
+    <body>
+        <form class="form-signin" method="post">
+            {% csrf_token %}
+          <div class="text-center mb-4">
+            <!-- <img class="mb-4" src="https://getbootstrap.com/docs/4.0/assets/brand/bootstrap-solid.svg" alt="" width="72" height="72"> -->
+            <h1 class="h3 mb-3 font-weight-normal">Search Players</h1>
+            <p></p>
+          </div>
+    
+          <div class="form-label-group">
+            <!-- <input id="inputPlayer1" class="form-control" placeholder="Player 1" required autofocus> -->
+            {{ form.player1 }}
+            <label for="inputPlayer1">Player 1</label>
+          </div>
+    
+          <div class="form-label-group">
+            {{ form.player2 }}
+            <!-- <input id="inputPlayer2" class="form-control" placeholder="Player 2" required> -->
+            <label for="inputPlayer2">Player 2</label>
+          </div>
+    
+          <button class="btn btn-lg btn-primary btn-block" type="submit">Search!</button>
+          <p class="mt-5 mb-3 text-muted text-center">&copy; 2021</p>
+        </form>
+        {{teammates}}
+        <!-- {% for teammate in teammates %}
+          <p>{{ teammate }}</p>
+        {% endfor %} -->
+      </body>
+{% endblock content %}
