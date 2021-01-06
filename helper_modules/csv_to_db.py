@@ -1,20 +1,6 @@
 """
     Script to write CSV file to Mongo Database:
 """
-"""
-    temp stuff rn just to check logic...
-
-    player 1 - player 2 mutual teammates
-
-
-    loop through player 1 teammates.
-    for pl in pl1.teammates:
-        get the pl[pl_id]
-        for pl2 in pl2.teammates:
-            check the pl_id
-            if its a match:
-                store the pl name in a set
-"""
 import csv
 from mdb import db, players
 
